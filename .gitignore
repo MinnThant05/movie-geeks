@@ -43,6 +43,12 @@ jspm_packages/
 *.tsbuildinfo
 next-env.d.ts
 
+# next.js
+/.next/
+
+# env files (ignore all .env variants; never commit secrets)
+.env*
+
 # Optional npm cache
 .npm
 .eslintcache
