@@ -15,9 +15,10 @@ export interface TmdbMovie {
 }
 
 export interface TmdbMovieDetails extends TmdbMovie {
+  tagline: string;
   runtime: number | null;
   genres: { id: number; name: string }[];
-  credits?: {
+  credits: {
     cast: TmdbCastMember[];
     crew: TmdbCrewMember[];
   };
@@ -58,6 +59,30 @@ async function tmdbFetch<T>(endpoint: string, params: Record<string, string> = {
   return res.json();
 }
 
+// Like tmdbFetch, but resolves to null on a non-ok response (e.g. 404)
+// instead of throwing, for callers that treat "not found" as valid.
+async function tmdbFetchOrNull<T>(
+  endpoint: string,
+  params: Record<string, string> = {}
+): Promise<T | null> {
+  const url = new URL(`${TMDB_BASE_URL}${endpoint}`);
+  url.searchParams.set("api_key", process.env.TMDB_API_KEY!);
+
+  for (const [key, value] of Object.entries(params)) {
+    url.searchParams.set(key, value);
+  }
+
+  const res = await fetch(url.toString(), {
+    next: { revalidate: 3600 }, // cache for 1 hour
+  });
+
+  if (!res.ok) {
+    return null;
+  }
+
+  return res.json();
+}
+
 // ─── Public functions ───
 
 export async function getPopularMovies(page = 1) {
@@ -74,8 +99,8 @@ export async function searchMovies(query: string, page = 1) {
   );
 }
 
-export async function getMovieDetails(id: number) {
-  return tmdbFetch<TmdbMovieDetails>(`/movie/${id}`, {
+export async function getMovieDetails(id: string): Promise<TmdbMovieDetails | null> {
+  return tmdbFetchOrNull<TmdbMovieDetails>(`/movie/${id}`, {
     append_to_response: "credits",
   });
 }
