@@ -58,3 +58,10 @@ next-env.d.ts
 # Output of 'npm pack'
 *.tgz
 .yarn
+
+# agent/tooling directories and machine-local generated artifacts
+.agents/
+.claude/
+.windsurf/
+skills-lock.json
+app/generated/
