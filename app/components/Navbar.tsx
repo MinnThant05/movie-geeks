@@ -32,6 +32,12 @@ export function Navbar() {
               >
                 Watchlist
               </Link>
+              <Link
+                href="/profile"
+                className="text-sm text-gray-300 hover:text-white"
+              >
+                Profile
+              </Link>
               <span className="text-sm text-gray-300">
                 Hi, {session.user.name}
               </span>

@@ -1,4 +1,4 @@
-generator client {
+generator client {lo
   provider = "prisma-client"
   output   = "../app/generated/prisma"
 }
