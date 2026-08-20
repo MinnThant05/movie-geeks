@@ -2,16 +2,24 @@
 
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
+import { Suspense } from "react";
+import { SearchInput } from "@/app/components/SearchInput";
 
 export function Navbar() {
   const { data: session, status } = useSession();
 
   return (
     <nav className="border-b border-gray-800 bg-gray-900">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3">
         <Link href="/" className="text-xl font-bold text-white">
           🎬 Movie Geeks
         </Link>
+
+        <div className="order-3 w-full sm:order-none sm:w-auto sm:flex-1 sm:px-4">
+          <Suspense fallback={null}>
+            <SearchInput />
+          </Suspense>
+        </div>
 
         <div className="flex items-center gap-4">
           {status === "loading" ? (
