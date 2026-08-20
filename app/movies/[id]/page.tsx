@@ -1,6 +1,11 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 import { getMovieDetails, tmdbImage } from "@/lib/tmdb";
+import { MyReviewSection } from "@/app/components/MyReviewSection";
+import type { ReviewMovieInput } from "@/app/components/ReviewForm";
 
 export default async function MovieDetailsPage({
   params,
@@ -17,6 +22,27 @@ export default async function MovieDetailsPage({
   const posterUrl = tmdbImage(movie.poster_path, "w500");
   const year = movie.release_date?.slice(0, 4) || "—";
   const cast = movie.credits.cast.slice(0, 10);
+
+  const session = await getServerSession(authOptions);
+
+  const myReview = session?.user
+    ? await prisma.review.findUnique({
+        where: { userId_movieId: { userId: session.user.id, movieId: movie.id } },
+        select: { id: true, rating: true, content: true },
+      })
+    : null;
+
+  const reviewMovieInput: ReviewMovieInput = {
+    id: movie.id,
+    title: movie.title,
+    overview: movie.overview || null,
+    posterPath: movie.poster_path,
+    backdropPath: movie.backdrop_path,
+    releaseDate: movie.release_date || null,
+    rating: movie.vote_average,
+    genres: movie.genres.map((genre) => genre.name),
+    runtime: movie.runtime,
+  };
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-8">
@@ -100,7 +126,11 @@ export default async function MovieDetailsPage({
 
       <section className="mt-10">
         <h2 className="mb-4 text-xl font-bold text-white">Reviews</h2>
-        <p className="text-gray-400">Coming soon.</p>
+        <MyReviewSection
+          movie={reviewMovieInput}
+          isLoggedIn={Boolean(session?.user)}
+          initialReview={myReview}
+        />
       </section>
     </main>
   );
