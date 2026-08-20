@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { getMovieDetails, tmdbImage } from "@/lib/tmdb";
 import { MyReviewSection } from "@/app/components/MyReviewSection";
 import type { ReviewMovieInput } from "@/app/components/ReviewForm";
+import { ReviewList } from "@/app/components/ReviewList";
 
 export default async function MovieDetailsPage({
   params,
@@ -31,6 +32,28 @@ export default async function MovieDetailsPage({
         select: { id: true, rating: true, content: true },
       })
     : null;
+
+  const otherReviews = await prisma.review.findMany({
+    where: {
+      movieId: movie.id,
+      ...(session?.user ? { userId: { not: session.user.id } } : {}),
+    },
+    orderBy: { createdAt: "desc" },
+    select: {
+      id: true,
+      rating: true,
+      content: true,
+      createdAt: true,
+      user: { select: { name: true, image: true } },
+    },
+  });
+
+  const allReviewsCount = otherReviews.length + (myReview ? 1 : 0);
+  const averageRating =
+    allReviewsCount > 0
+      ? (otherReviews.reduce((sum, r) => sum + r.rating, 0) + (myReview?.rating ?? 0)) /
+        allReviewsCount
+      : 0;
 
   const reviewMovieInput: ReviewMovieInput = {
     id: movie.id,
@@ -125,12 +148,32 @@ export default async function MovieDetailsPage({
       </section>
 
       <section className="mt-10">
-        <h2 className="mb-4 text-xl font-bold text-white">Reviews</h2>
+        <div className="mb-4 flex items-baseline justify-between">
+          <h2 className="text-xl font-bold text-white">Reviews</h2>
+          {allReviewsCount > 0 && (
+            <p className="text-sm text-gray-400">
+              {allReviewsCount} review{allReviewsCount === 1 ? "" : "s"} ·{" "}
+              {averageRating.toFixed(1)} average
+            </p>
+          )}
+        </div>
+
         <MyReviewSection
           movie={reviewMovieInput}
           isLoggedIn={Boolean(session?.user)}
           initialReview={myReview}
         />
+
+        <div className="mt-6">
+          <ReviewList
+            reviews={otherReviews}
+            emptyMessage={
+              myReview
+                ? "No other reviews yet."
+                : "No reviews yet — be the first to review this movie."
+            }
+          />
+        </div>
       </section>
     </main>
   );
