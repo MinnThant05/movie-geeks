@@ -1,3 +1,5 @@
+import type { Movie } from "@/app/generated/prisma/client";
+
 const TMDB_BASE_URL = "https://api.themoviedb.org/3";
 const TMDB_IMAGE_BASE = "https://image.tmdb.org/t/p";
 
@@ -103,6 +105,24 @@ export async function getMovieDetails(id: string): Promise<TmdbMovieDetails | nu
   return tmdbFetchOrNull<TmdbMovieDetails>(`/movie/${id}`, {
     append_to_response: "credits",
   });
+}
+
+// ─── DB → TMDB shape bridge ───
+// Movies stored in the DB (via Prisma) use camelCase field names, but
+// MovieCard was built to render TMDB API responses (snake_case). Rather
+// than teach MovieCard two shapes, map the DB row into a TmdbMovie here
+// once, at the query boundary.
+
+export function dbMovieToTmdbMovie(movie: Movie): TmdbMovie {
+  return {
+    id: movie.id,
+    title: movie.title,
+    overview: movie.overview ?? "",
+    poster_path: movie.posterPath,
+    backdrop_path: movie.backdropPath,
+    release_date: movie.releaseDate ? movie.releaseDate.toISOString().slice(0, 10) : "",
+    vote_average: movie.rating ?? 0,
+  };
 }
 
 // ─── Image URL helper ───

@@ -26,6 +26,12 @@ export function Navbar() {
             <span className="text-sm text-gray-500">...</span>
           ) : session ? (
             <>
+              <Link
+                href="/watchlist"
+                className="text-sm text-gray-300 hover:text-white"
+              >
+                Watchlist
+              </Link>
               <span className="text-sm text-gray-300">
                 Hi, {session.user.name}
               </span>

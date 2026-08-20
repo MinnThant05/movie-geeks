@@ -7,6 +7,7 @@ import { getMovieDetails, tmdbImage } from "@/lib/tmdb";
 import { MyReviewSection } from "@/app/components/MyReviewSection";
 import type { ReviewMovieInput } from "@/app/components/ReviewForm";
 import { ReviewList } from "@/app/components/ReviewList";
+import { WatchlistButton } from "@/app/components/WatchlistButton";
 
 export default async function MovieDetailsPage({
   params,
@@ -47,6 +48,13 @@ export default async function MovieDetailsPage({
       user: { select: { name: true, image: true } },
     },
   });
+
+  const watchlistEntry = session?.user
+    ? await prisma.watchlist.findUnique({
+        where: { userId_movieId: { userId: session.user.id, movieId: movie.id } },
+        select: { id: true },
+      })
+    : null;
 
   const allReviewsCount = otherReviews.length + (myReview ? 1 : 0);
   const averageRating =
@@ -103,6 +111,14 @@ export default async function MovieDetailsPage({
             {movie.genres.length > 0 && (
               <span>{movie.genres.map((g) => g.name).join(", ")}</span>
             )}
+          </div>
+
+          <div className="mt-4">
+            <WatchlistButton
+              movie={reviewMovieInput}
+              isLoggedIn={Boolean(session?.user)}
+              initialIsOnWatchlist={Boolean(watchlistEntry)}
+            />
           </div>
 
           <p className="mt-6 leading-relaxed text-gray-200">
