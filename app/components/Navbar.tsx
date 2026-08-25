@@ -38,6 +38,14 @@ export function Navbar() {
               >
                 Profile
               </Link>
+              {session.user.role === "ADMIN" && (
+                <Link
+                  href="/admin"
+                  className="text-sm text-gray-300 hover:text-white"
+                >
+                  Admin
+                </Link>
+              )}
               <span className="text-sm text-gray-300">
                 Hi, {session.user.name}
               </span>
