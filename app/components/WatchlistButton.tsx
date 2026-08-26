@@ -38,7 +38,7 @@ export function WatchlistButton({
     return (
       <Link
         href="/login"
-        className="inline-flex items-center gap-1.5 rounded-lg border border-gray-700 px-4 py-1.5 text-sm font-semibold text-gray-300 transition hover:border-gray-500 hover:text-white"
+        className="inline-flex items-center gap-1.5 rounded-pill border border-border-subtle bg-surface-raised px-4 py-1.5 text-sm font-semibold text-cream-muted transition hover:border-accent-teal hover:text-cream"
       >
         + Add to Watchlist
       </Link>
@@ -83,8 +83,8 @@ export function WatchlistButton({
         disabled={isSubmitting}
         className={
           isOnWatchlist
-            ? "inline-flex items-center gap-1.5 rounded-lg bg-blue-600 px-4 py-1.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-50"
-            : "inline-flex items-center gap-1.5 rounded-lg border border-gray-700 px-4 py-1.5 text-sm font-semibold text-gray-300 transition hover:border-gray-500 hover:text-white disabled:opacity-50"
+            ? "inline-flex items-center gap-1.5 rounded-pill bg-accent-deep px-4 py-1.5 text-sm font-semibold text-cream shadow-marquee transition hover:bg-accent-deep-hover disabled:opacity-50"
+            : "inline-flex items-center gap-1.5 rounded-pill border border-border-subtle bg-surface-raised px-4 py-1.5 text-sm font-semibold text-cream-muted transition hover:border-accent-teal hover:text-cream disabled:opacity-50"
         }
       >
         {isSubmitting

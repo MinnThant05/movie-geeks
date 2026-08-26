@@ -25,8 +25,8 @@ export function MyReviewSection({ movie, isLoggedIn, initialReview }: MyReviewSe
 
   if (!isLoggedIn) {
     return (
-      <p className="text-gray-400">
-        <Link href="/login" className="text-blue-400 hover:underline">
+      <p className="text-cream-muted">
+        <Link href="/login" className="text-accent-teal transition-colors hover:text-accent">
           Log in
         </Link>{" "}
         to write a review.
@@ -76,10 +76,10 @@ export function MyReviewSection({ movie, isLoggedIn, initialReview }: MyReviewSe
   }
 
   return (
-    <div className="rounded-lg bg-gray-800 p-4">
+    <div className="rounded-card border border-border bg-surface p-4 shadow-poster">
       <StarRating value={review.rating} readOnly />
 
-      {review.content && <p className="mt-2 text-sm text-gray-200">{review.content}</p>}
+      {review.content && <p className="mt-2 text-sm text-cream-muted">{review.content}</p>}
 
       {deleteError && <p className="mt-2 text-sm text-red-400">{deleteError}</p>}
 
@@ -87,7 +87,7 @@ export function MyReviewSection({ movie, isLoggedIn, initialReview }: MyReviewSe
         <button
           type="button"
           onClick={() => setIsEditing(true)}
-          className="text-sm text-blue-400 hover:underline"
+          className="text-sm text-accent-teal transition-colors hover:text-accent"
         >
           Edit
         </button>
@@ -95,7 +95,7 @@ export function MyReviewSection({ movie, isLoggedIn, initialReview }: MyReviewSe
           type="button"
           onClick={handleDelete}
           disabled={isDeleting}
-          className="text-sm text-red-400 hover:underline disabled:opacity-50"
+          className="text-sm text-red-400 transition-colors hover:text-red-300 disabled:opacity-50"
         >
           {isDeleting ? "Deleting..." : "Delete"}
         </button>

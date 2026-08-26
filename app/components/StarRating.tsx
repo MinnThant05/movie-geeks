@@ -26,7 +26,7 @@ export function StarRating({ value, onChange, readOnly = false }: StarRatingProp
             key={star}
             aria-hidden="true"
             className={`text-lg leading-none ${
-              star <= value ? "text-yellow-400" : "text-gray-600"
+              star <= value ? "text-accent-teal" : "text-cream-dim"
             }`}
           >
             {star <= value ? "★" : "☆"}
@@ -54,8 +54,8 @@ export function StarRating({ value, onChange, readOnly = false }: StarRatingProp
             aria-label={`${star} star${star === 1 ? "" : "s"}`}
             onClick={() => onChange?.(star)}
             onMouseEnter={() => setHoverValue(star)}
-            className={`text-2xl leading-none transition hover:scale-110 ${
-              filled ? "text-yellow-400" : "text-gray-600"
+            className={`rounded-sm text-2xl leading-none transition hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-teal focus-visible:ring-offset-2 focus-visible:ring-offset-surface ${
+              filled ? "text-accent-teal" : "text-cream-dim"
             }`}
           >
             {filled ? "★" : "☆"}

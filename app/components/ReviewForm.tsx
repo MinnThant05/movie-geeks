@@ -92,7 +92,10 @@ export function ReviewForm({ movie, existingReview, onSaved, onCancel }: ReviewF
   const isSubmitting = state === "submitting";
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-lg bg-gray-800 p-4">
+    <form
+      onSubmit={handleSubmit}
+      className="rounded-card border border-border bg-surface p-4 shadow-poster"
+    >
       <div className="mb-3">
         <StarRating value={rating} onChange={setRating} />
       </div>
@@ -102,7 +105,7 @@ export function ReviewForm({ movie, existingReview, onSaved, onCancel }: ReviewF
         onChange={(e) => setContent(e.target.value)}
         placeholder="Share your thoughts about this movie (optional)"
         rows={4}
-        className="w-full resize-none rounded-lg border border-gray-700 bg-gray-900 px-3 py-2 text-sm text-white placeholder-gray-500 outline-none transition focus:border-blue-600"
+        className="w-full resize-none rounded-lg border border-border-subtle bg-background px-3 py-2 text-sm text-cream placeholder-cream-dim outline-none transition focus:border-accent-teal focus-visible:ring-2 focus-visible:ring-accent-teal focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
       />
 
       {state === "error" && errorMessage && (
@@ -113,7 +116,7 @@ export function ReviewForm({ movie, existingReview, onSaved, onCancel }: ReviewF
         <button
           type="submit"
           disabled={isSubmitting}
-          className="rounded-lg bg-blue-600 px-4 py-1.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-50"
+          className="rounded-pill bg-accent-deep px-4 py-1.5 text-sm font-semibold text-cream shadow-marquee transition hover:bg-accent-deep-hover disabled:opacity-50"
         >
           {isSubmitting ? "Saving..." : isEditing ? "Save changes" : "Submit review"}
         </button>
@@ -123,7 +126,7 @@ export function ReviewForm({ movie, existingReview, onSaved, onCancel }: ReviewF
             type="button"
             onClick={onCancel}
             disabled={isSubmitting}
-            className="text-sm text-gray-400 hover:text-white"
+            className="text-sm text-cream-muted hover:text-cream"
           >
             Cancel
           </button>
