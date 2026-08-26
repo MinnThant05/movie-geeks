@@ -49,31 +49,39 @@ export default async function ProfilePage() {
   });
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-8">
-      <h1 className="mb-6 text-2xl font-bold text-white">My Profile</h1>
+    <main className="mx-auto w-full max-w-3xl px-4 py-10">
+      <div className="mb-8">
+        <h1 className="font-display text-2xl tracking-wide text-cream sm:text-3xl">
+          My Profile
+        </h1>
+        <div className="mt-2 h-1 w-16 rounded-pill bg-gradient-to-r from-accent-teal to-accent-deep" />
+      </div>
 
-      <div className="mb-6 flex items-center gap-4">
+      <div className="mb-8 flex items-center gap-4 rounded-card border border-border bg-surface p-5 shadow-poster">
         {user.image ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={user.image}
             alt={user.name ?? "User"}
-            className="h-16 w-16 flex-shrink-0 rounded-full object-cover"
+            className="h-16 w-16 flex-shrink-0 rounded-full object-cover ring-2 ring-border-subtle"
           />
         ) : (
-          <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-gray-700 text-lg font-semibold text-gray-300">
+          <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full border border-border-subtle bg-surface-raised text-lg font-semibold text-cream-muted">
             {initials(user.name)}
           </div>
         )}
 
-        <div>
-          <p className="text-lg font-semibold text-white">{user.name ?? "Unnamed"}</p>
-          <p className="text-sm text-gray-400">{user.email}</p>
+        <div className="min-w-0">
+          <p className="font-display text-xl tracking-wide text-cream">
+            {user.name ?? "Unnamed"}
+          </p>
+          <p className="text-sm text-cream-muted">{user.email}</p>
+          {user.bio && <p className="mt-2 max-w-lg text-sm text-cream-muted">{user.bio}</p>}
         </div>
       </div>
 
       <section className="mb-10">
-        <h2 className="mb-3 text-lg font-semibold text-white">Edit Profile</h2>
+        <h2 className="mb-3 font-display text-xl tracking-wide text-cream">Edit Profile</h2>
         <EditProfile
           initialName={user.name ?? ""}
           initialBio={user.bio ?? ""}
@@ -82,12 +90,12 @@ export default async function ProfilePage() {
       </section>
 
       <section>
-        <h2 className="mb-4 text-lg font-semibold text-white">My Reviews</h2>
+        <h2 className="mb-4 font-display text-xl tracking-wide text-cream">My Reviews</h2>
 
         {reviews.length === 0 ? (
-          <p className="text-gray-400">
+          <p className="text-cream-muted">
             You haven&apos;t reviewed any movies yet.{" "}
-            <Link href="/" className="text-blue-400 hover:underline">
+            <Link href="/" className="text-accent-teal transition-colors hover:text-accent">
               Browse movies
             </Link>{" "}
             to write your first review.
@@ -97,10 +105,13 @@ export default async function ProfilePage() {
             {reviews.map((review) => {
               const posterUrl = tmdbImage(review.movie.posterPath, "w200");
               return (
-                <li key={review.id} className="flex gap-4 rounded-lg bg-gray-800 p-4">
+                <li
+                  key={review.id}
+                  className="flex gap-4 rounded-card border border-border bg-surface p-4 shadow-poster"
+                >
                   <Link
                     href={`/movies/${review.movie.id}`}
-                    className="relative aspect-[2/3] w-16 flex-shrink-0 overflow-hidden rounded bg-gray-700"
+                    className="relative aspect-[2/3] w-16 flex-shrink-0 overflow-hidden rounded-lg border border-border-subtle bg-surface-raised"
                   >
                     {posterUrl ? (
                       <Image
@@ -111,7 +122,7 @@ export default async function ProfilePage() {
                         className="object-cover"
                       />
                     ) : (
-                      <div className="flex h-full items-center justify-center text-xs text-gray-500">
+                      <div className="flex h-full items-center justify-center text-xs text-cream-dim">
                         No image
                       </div>
                     )}
@@ -121,11 +132,11 @@ export default async function ProfilePage() {
                     <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
                       <Link
                         href={`/movies/${review.movie.id}`}
-                        className="truncate font-semibold text-white hover:underline"
+                        className="truncate font-semibold text-cream transition-colors hover:text-accent-teal"
                       >
                         {review.movie.title}
                       </Link>
-                      <span className="text-xs text-gray-400">
+                      <span className="text-xs text-cream-dim">
                         {formatDate(review.createdAt)}
                       </span>
                     </div>
@@ -135,7 +146,7 @@ export default async function ProfilePage() {
                     </div>
 
                     {review.content && (
-                      <p className="mt-2 text-sm text-gray-200">{review.content}</p>
+                      <p className="mt-2 text-sm text-cream-muted">{review.content}</p>
                     )}
                   </div>
                 </li>

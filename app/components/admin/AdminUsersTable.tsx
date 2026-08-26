@@ -66,9 +66,9 @@ export function AdminUsersTable({ users: initialUsers, currentUserId }: AdminUse
     <div>
       {error && <p className="mb-3 text-sm text-red-400">{error}</p>}
 
-      <div className="overflow-x-auto rounded-lg border border-gray-800">
+      <div className="overflow-x-auto rounded-card border border-border">
         <table className="w-full min-w-[640px] text-left text-sm">
-          <thead className="bg-gray-800 text-gray-300">
+          <thead className="bg-surface-raised text-cream-muted">
             <tr>
               <th className="px-4 py-2 font-medium">Name</th>
               <th className="px-4 py-2 font-medium">Email</th>
@@ -77,32 +77,38 @@ export function AdminUsersTable({ users: initialUsers, currentUserId }: AdminUse
               <th className="px-4 py-2 font-medium">Action</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-800">
+          <tbody className="divide-y divide-border bg-surface">
             {users.map((user) => {
               const isSelf = user.id === currentUserId;
+              const isPromoteAction = user.role !== "ADMIN";
+              const actionToneClasses = isSelf
+                ? "border-border-subtle text-cream-dim"
+                : isPromoteAction
+                  ? "border-accent-teal/50 text-accent-teal hover:border-accent-teal hover:bg-accent-teal/10"
+                  : "border-red-800 text-red-400 hover:border-red-600 hover:text-red-300";
               return (
-                <tr key={user.id} className="text-gray-200">
-                  <td className="px-4 py-2">{user.name ?? "Unnamed"}</td>
-                  <td className="px-4 py-2 text-gray-400">{user.email}</td>
+                <tr key={user.id} className="text-cream-muted">
+                  <td className="px-4 py-2 font-medium text-cream">{user.name ?? "Unnamed"}</td>
+                  <td className="px-4 py-2 text-cream-dim">{user.email}</td>
                   <td className="px-4 py-2">
                     <span
                       className={
                         user.role === "ADMIN"
-                          ? "rounded-full bg-blue-600/20 px-2 py-0.5 text-xs font-semibold text-blue-400"
-                          : "rounded-full bg-gray-700 px-2 py-0.5 text-xs font-semibold text-gray-300"
+                          ? "rounded-pill bg-accent-teal/15 px-2 py-0.5 text-xs font-semibold text-accent-teal"
+                          : "rounded-pill border border-border-subtle bg-surface-raised px-2 py-0.5 text-xs font-semibold text-cream-muted"
                       }
                     >
                       {user.role}
                     </span>
                   </td>
-                  <td className="px-4 py-2 text-gray-400">{formatDate(user.createdAt)}</td>
+                  <td className="px-4 py-2 text-cream-dim">{formatDate(user.createdAt)}</td>
                   <td className="px-4 py-2">
                     <button
                       type="button"
                       onClick={() => toggleRole(user)}
                       disabled={isSelf || pendingId === user.id}
                       title={isSelf ? "You cannot change your own role" : undefined}
-                      className="rounded-lg border border-gray-700 px-3 py-1 text-xs font-semibold text-gray-300 transition hover:border-gray-500 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                      className={`rounded-pill border px-3 py-1 text-xs font-semibold transition disabled:cursor-not-allowed disabled:opacity-40 ${actionToneClasses}`}
                     >
                       {pendingId === user.id
                         ? "Saving..."

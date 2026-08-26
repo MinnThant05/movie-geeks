@@ -108,23 +108,23 @@ export function EditProfile({ initialName, initialBio, initialImage }: EditProfi
   }
 
   return (
-    <div className="rounded-lg bg-gray-800 p-4">
+    <div className="rounded-card border border-border bg-surface p-4 shadow-poster">
       <div className="mb-4 flex items-center gap-4">
         {image ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={image}
             alt={name || "User"}
-            className="h-16 w-16 flex-shrink-0 rounded-full object-cover"
+            className="h-16 w-16 flex-shrink-0 rounded-full object-cover ring-2 ring-border-subtle"
           />
         ) : (
-          <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full bg-gray-700 text-lg font-semibold text-gray-300">
+          <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-full border border-border-subtle bg-surface-raised text-lg font-semibold text-cream-muted">
             {initials(name)}
           </div>
         )}
 
         <div>
-          <label className="inline-block cursor-pointer rounded-lg bg-gray-700 px-3 py-1.5 text-sm text-gray-200 transition hover:bg-gray-600">
+          <label className="inline-block cursor-pointer rounded-pill border border-border-subtle bg-surface-raised px-3 py-1.5 text-sm text-cream-muted transition hover:border-accent-teal hover:text-cream">
             {isUploading ? "Uploading..." : "Change avatar"}
             <input
               type="file"
@@ -142,7 +142,7 @@ export function EditProfile({ initialName, initialBio, initialImage }: EditProfi
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <div>
-          <label htmlFor="name" className="mb-1 block text-sm text-gray-300">
+          <label htmlFor="name" className="mb-1 block text-sm text-cream-muted">
             Name
           </label>
           <input
@@ -152,12 +152,12 @@ export function EditProfile({ initialName, initialBio, initialImage }: EditProfi
             onChange={(e) => setName(e.target.value)}
             disabled={isSaving}
             maxLength={100}
-            className="w-full rounded-lg border border-gray-700 bg-gray-900 px-3 py-2 text-sm text-white outline-none transition focus:border-blue-600 disabled:opacity-50"
+            className="w-full rounded-lg border border-border-subtle bg-background px-3 py-2 text-sm text-cream outline-none transition focus:border-accent-teal focus-visible:ring-2 focus-visible:ring-accent-teal focus-visible:ring-offset-2 focus-visible:ring-offset-surface disabled:opacity-50"
           />
         </div>
 
         <div>
-          <label htmlFor="bio" className="mb-1 block text-sm text-gray-300">
+          <label htmlFor="bio" className="mb-1 block text-sm text-cream-muted">
             Bio
           </label>
           <textarea
@@ -168,7 +168,7 @@ export function EditProfile({ initialName, initialBio, initialImage }: EditProfi
             rows={3}
             maxLength={500}
             placeholder="Tell other movie geeks about yourself"
-            className="w-full resize-none rounded-lg border border-gray-700 bg-gray-900 px-3 py-2 text-sm text-white placeholder-gray-500 outline-none transition focus:border-blue-600 disabled:opacity-50"
+            className="w-full resize-none rounded-lg border border-border-subtle bg-background px-3 py-2 text-sm text-cream placeholder-cream-dim outline-none transition focus:border-accent-teal focus-visible:ring-2 focus-visible:ring-accent-teal focus-visible:ring-offset-2 focus-visible:ring-offset-surface disabled:opacity-50"
           />
         </div>
 
@@ -180,7 +180,7 @@ export function EditProfile({ initialName, initialBio, initialImage }: EditProfi
           <button
             type="submit"
             disabled={isSaving}
-            className="rounded-lg bg-blue-600 px-4 py-1.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-50"
+            className="rounded-pill bg-accent-deep px-4 py-1.5 text-sm font-semibold text-cream shadow-marquee transition hover:bg-accent-deep-hover disabled:opacity-50"
           >
             {isSaving ? "Saving..." : "Save changes"}
           </button>

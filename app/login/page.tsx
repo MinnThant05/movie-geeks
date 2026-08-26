@@ -34,53 +34,53 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-900 px-4">
-      <div className="w-full max-w-md rounded-xl bg-gray-800 p-8 shadow-lg">
-        <h1 className="mb-6 text-center text-2xl font-bold text-white">
+    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+      <div className="w-full max-w-md rounded-card border border-border bg-surface p-8 shadow-poster">
+        <h1 className="mb-6 text-center font-display text-3xl tracking-wide text-cream">
           Sign in to Movie Geeks
         </h1>
 
         {error && (
-          <div className="mb-4 rounded-lg bg-red-500/10 p-3 text-sm text-red-400">
+          <div className="mb-4 rounded-lg border border-red-900/50 bg-red-500/10 p-3 text-sm text-red-400">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="mb-1 block text-sm text-gray-300">Email</label>
+            <label className="mb-1 block text-sm text-cream-muted">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full rounded-lg bg-gray-700 px-3 py-2 text-white outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-lg border border-border-subtle bg-background px-3 py-2 text-cream outline-none transition focus:border-accent-teal focus-visible:ring-2 focus-visible:ring-accent-teal focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
             />
           </div>
 
           <div>
-            <label className="mb-1 block text-sm text-gray-300">Password</label>
+            <label className="mb-1 block text-sm text-cream-muted">Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full rounded-lg bg-gray-700 px-3 py-2 text-white outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full rounded-lg border border-border-subtle bg-background px-3 py-2 text-cream outline-none transition focus:border-accent-teal focus-visible:ring-2 focus-visible:ring-accent-teal focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full rounded-lg bg-blue-600 py-2 font-semibold text-white transition hover:bg-blue-700 disabled:opacity-50"
+            className="w-full rounded-pill bg-accent-deep py-2 font-semibold text-cream shadow-marquee transition hover:bg-accent-deep-hover disabled:opacity-50"
           >
             {loading ? "Signing in..." : "Sign in"}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-gray-400">
+        <p className="mt-6 text-center text-sm text-cream-muted">
           Don&apos;t have an account?{" "}
-          <Link href="/register" className="text-blue-400 hover:underline">
+          <Link href="/register" className="text-accent-teal transition-colors hover:text-accent">
             Register
           </Link>
         </p>

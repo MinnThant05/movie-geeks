@@ -56,7 +56,7 @@ export function AdminReviewsTable({ reviews: initialReviews }: AdminReviewsTable
   }
 
   if (reviews.length === 0) {
-    return <p className="text-gray-400">No reviews yet.</p>;
+    return <p className="text-cream-muted">No reviews yet.</p>;
   }
 
   return (
@@ -67,20 +67,20 @@ export function AdminReviewsTable({ reviews: initialReviews }: AdminReviewsTable
         {reviews.map((review) => (
           <li
             key={review.id}
-            className="flex flex-col gap-2 rounded-lg bg-gray-800 p-4 sm:flex-row sm:items-start sm:justify-between"
+            className="flex flex-col gap-2 rounded-card border border-border bg-surface p-4 shadow-poster sm:flex-row sm:items-start sm:justify-between"
           >
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                 <Link
                   href={`/movies/${review.movie.id}`}
-                  className="font-semibold text-white hover:underline"
+                  className="font-semibold text-cream transition-colors hover:text-accent-teal"
                 >
                   {review.movie.title}
                 </Link>
-                <span className="text-xs text-gray-400">
+                <span className="text-xs text-cream-muted">
                   by {review.user.name ?? "Unnamed"}
                 </span>
-                <span className="text-xs text-gray-500">{formatDate(review.createdAt)}</span>
+                <span className="text-xs text-cream-dim">{formatDate(review.createdAt)}</span>
               </div>
 
               <div className="mt-1">
@@ -88,7 +88,7 @@ export function AdminReviewsTable({ reviews: initialReviews }: AdminReviewsTable
               </div>
 
               {review.content && (
-                <p className="mt-2 text-sm text-gray-200">{review.content}</p>
+                <p className="mt-2 text-sm text-cream-muted">{review.content}</p>
               )}
             </div>
 
@@ -96,7 +96,7 @@ export function AdminReviewsTable({ reviews: initialReviews }: AdminReviewsTable
               type="button"
               onClick={() => handleDelete(review.id)}
               disabled={pendingId === review.id}
-              className="self-start rounded-lg border border-red-800 px-3 py-1 text-xs font-semibold text-red-400 transition hover:border-red-600 hover:text-red-300 disabled:cursor-not-allowed disabled:opacity-40"
+              className="self-start rounded-pill border border-red-800 px-3 py-1 text-xs font-semibold text-red-400 transition hover:border-red-600 hover:text-red-300 disabled:cursor-not-allowed disabled:opacity-40"
             >
               {pendingId === review.id ? "Deleting..." : "Delete"}
             </button>

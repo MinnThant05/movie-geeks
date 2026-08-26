@@ -6,9 +6,11 @@ import { AdminReviewsTable } from "@/app/components/admin/AdminReviewsTable";
 
 function StatCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-lg border border-gray-800 bg-gray-900 p-4">
-      <p className="text-sm text-gray-400">{label}</p>
-      <p className="mt-1 text-2xl font-bold text-white">{value}</p>
+    <div className="rounded-card border border-border bg-surface p-4 shadow-poster">
+      <p className="text-sm text-cream-muted">{label}</p>
+      <p className="mt-1 truncate font-display text-2xl tracking-wide text-accent-teal">
+        {value}
+      </p>
     </div>
   );
 }
@@ -53,8 +55,13 @@ export default async function AdminPage() {
       : null;
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-8">
-      <h1 className="mb-6 text-2xl font-bold text-white">Admin Dashboard</h1>
+    <main className="mx-auto w-full max-w-6xl px-4 py-10">
+      <div className="mb-8">
+        <h1 className="font-display text-2xl tracking-wide text-cream sm:text-3xl">
+          Admin Dashboard
+        </h1>
+        <div className="mt-2 h-1 w-16 rounded-pill bg-gradient-to-r from-accent-teal to-accent-deep" />
+      </div>
 
       <section className="mb-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
         <StatCard label="Total Users" value={totalUsers.toString()} />
@@ -67,7 +74,9 @@ export default async function AdminPage() {
       </section>
 
       <section className="mb-10">
-        <h2 className="mb-4 text-lg font-semibold text-white">User Management</h2>
+        <h2 className="mb-4 font-display text-xl tracking-wide text-cream">
+          User Management
+        </h2>
         <AdminUsersTable
           users={users.map((u) => ({ ...u, createdAt: u.createdAt.toISOString() }))}
           currentUserId={auth.session.user.id}
@@ -75,7 +84,9 @@ export default async function AdminPage() {
       </section>
 
       <section>
-        <h2 className="mb-4 text-lg font-semibold text-white">Review Moderation</h2>
+        <h2 className="mb-4 font-display text-xl tracking-wide text-cream">
+          Review Moderation
+        </h2>
         <AdminReviewsTable
           reviews={reviews.map((r) => ({ ...r, createdAt: r.createdAt.toISOString() }))}
         />
