@@ -1,26 +1,57 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Retro Cinema — warm dark base */
+  --background: #1c1512;
+  --background-alt: #150f0d;
+  --surface: #271e1a;
+  --surface-raised: #33261f;
+  --border: #4a372e;
+  --border-subtle: #3a2c24;
+
+  /* Aged-paper text */
+  --cream: #f3e9d8;
+  --cream-muted: #c9b8a4;
+  --cream-dim: #8f7c6c;
+
+  /* Cool teal-to-purple accent scale */
+  --accent-teal: #2dd4bf;
+  --accent: #8b5cf6;
+  --accent-deep: #6d28d9;
+  --accent-deep-hover: #7c3aed;
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-background-alt: var(--background-alt);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-cream: var(--cream);
+  --color-cream-muted: var(--cream-muted);
+  --color-cream-dim: var(--cream-dim);
+
+  --color-accent-teal: var(--accent-teal);
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --color-accent-deep-hover: var(--accent-deep-hover);
+
+  --font-sans: var(--font-body);
+  --font-display: var(--font-marquee);
+
+  --radius-card: 0.75rem;
+  --radius-pill: 999px;
+
+  --shadow-poster: 0 12px 28px -8px rgba(10, 6, 4, 0.65),
+    0 4px 10px -6px rgba(10, 6, 4, 0.5);
+  --shadow-marquee: 0 0 24px rgba(139, 92, 246, 0.35),
+    0 0 10px rgba(45, 212, 191, 0.25);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-cream);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }

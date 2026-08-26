@@ -11,7 +11,7 @@ export default async function SearchPage({
 
   if (!query) {
     return (
-      <main className="mx-auto max-w-6xl px-4 py-8">
+      <main className="mx-auto w-full max-w-6xl px-4 py-8">
         <p className="text-gray-400">
           Search for a movie using the box above.
         </p>
@@ -22,7 +22,7 @@ export default async function SearchPage({
   const data = await searchMovies(query);
 
   return (
-    <main className="mx-auto max-w-6xl px-4 py-8">
+    <main className="mx-auto w-full max-w-6xl px-4 py-8">
       <h1 className="mb-6 text-2xl font-bold text-white">
         Results for &ldquo;{query}&rdquo;
       </h1>

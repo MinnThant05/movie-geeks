@@ -21,7 +21,7 @@ export function SearchInput() {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search movies..."
-        className="w-full rounded-lg border border-gray-700 bg-gray-800 px-3 py-1.5 text-sm text-white placeholder-gray-500 outline-none transition focus:border-blue-600"
+        className="w-full rounded-pill border border-border-subtle bg-surface-raised px-3 py-1.5 text-sm text-cream placeholder-cream-dim outline-none transition focus:border-accent-teal focus-visible:ring-2 focus-visible:ring-accent-teal focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
       />
     </form>
   );
